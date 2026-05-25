@@ -1,6 +1,6 @@
-# LoRA Teacher
+# NeuralCP
 
-LoRA Teacher is a research codebase for parameter-efficient adaptation of decoder-only language models. The repository centers on a two-stage workflow:
+NeuralCP is a research codebase for parameter-efficient adaptation of decoder-only language models. The repository centers on a two-stage workflow:
 
 1. Train a temporary LoRA teacher on a task.
 2. Consolidate the teacher's useful behavior back into a base model with selective module updates, attribution, replay, and optional memory-aware extensions.
