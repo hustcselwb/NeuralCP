@@ -2,8 +2,8 @@
 
 NeuralCP is a research codebase for parameter-efficient adaptation of decoder-only language models. The repository centers on a two-stage workflow:
 
-1. Train a temporary LoRA teacher on a task.
-2. Consolidate the teacher's useful behavior back into a base model with selective module updates, attribution, replay, and optional memory-aware extensions.
+1. Train a temporary LoRA module on a task.
+2. Consolidate the LoRA's useful behavior back into a base model with selective module updates, attribution, replay, and optional memory-aware extensions.
 
 The release in this folder is a cleaned GitHub-ready version built from the original `/root/lora-teacher` workspace. It keeps the core code layout and the commands you were actually using, while removing generated artifacts, caches, machine-specific clutter, and one-off utilities.
 
@@ -34,7 +34,6 @@ Main code areas:
 - `src/cl_lora_probe/runners`: train/eval pipeline entrypoints.
 - `src/cl_lora_probe/consolidation`: attribution-guided consolidation logic.
 - `src/cl_lora_probe/memory`: memory tag, replay, and subspace-bank components.
-- `src/cl_lora_probe/ttt`: trigger-based test-time tuning.
 - `configs`: runnable YAML configs.
 - `scripts`: convenience entrypoints for the workflows used in practice.
 
@@ -175,18 +174,6 @@ python3 -m cl_lora_probe.runners.train_consolidation \
   --output_dir outputs/qwen3_gsm8k_stage1/consolidation_stage_resume
 ```
 
-### Trigger-based TTT
-
-```bash
-python3 -m cl_lora_probe.runners.run_ttt_eval \
-  --model_config configs/model/sst2_consolidated_student.yaml \
-  --data_config configs/data/sst2_arrow.yaml \
-  --train_config configs/train/consolidation_gsm8k_quick.yaml \
-  --ttt_config configs/experiments/ttt_eval_sst2_single_task.yaml \
-  --memory_artifacts_config configs/experiments/memory_artifacts_sst2_single_task.yaml \
-  --output_dir outputs/sst2_ttt_eval
-```
-
 ### Continual experiment
 
 All-in-one continual config:
@@ -277,7 +264,6 @@ Memory-aware runs may also save:
 - `tag_buffer.json`
 - `subspace_bank.pt`
 - `replay_capture_report.json`
-- `ttt_summary.json`
 
 ## Notes
 
